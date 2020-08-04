@@ -1,0 +1,663 @@
+// README.adoc
+
+:author: Tom Swan
+:email: <tom@tomswan.com>
+:description: Guide to MyChip8 for VIPS a Cosmac VIP Emulator
+:keywords: GAMES VINTAGE PROGRAMMING CHIP8 OCTO C++ RCA COSMAC VIP 
+:copyright: © 2020 by Tom Swan
+:favicon: https://www.tomswan.com/image/favicon.png
+:icons: font
+:idprefix:
+:idseparator: -
+:sectanchors:
+:figure-caption!:
+:imagesdir: image
+:license: LICENSE.txt[License Text]
+:dot: .
+:ellipsis: …
+:hatch: #
+:pilcrow: ¶
+:star: *
+:tilde: ~
+:ul: _
+
+= MyChip8 for VIPs
+
+by Tom Swan
+
+Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on a Chip8 interpreter originally written by Laurence Muller (see <<original>>). I fully revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
+
+image::clip-br8kout.gif[800, 500]
+
+MyChip8 is composed of two symbiotic objects: an emulator -- encompassing the interface, graphics display, and keyboard input; and a Chip8 interpreter -- the code that loads and executes Chip8 bytecode instructions. It's built using Qt's OpenGL graphics and other C++ class libraries. This guide explains how to compile the MyChip8 source code files and shows how to use the program to load and run Chip8 programs.
+
+NOTE: This early release of MyChip8 runs best from a terminal  command-line and has only a rudimentary interface -- so far! 
+
+- - -
+
+Published under the GNU General Public License (GPL) v3: link:{license}
+
+Copyright (C) 2020 by Tom Swan
+
++++
+<a href="https://www.patreon.com/bePatron?u=28168579" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
++++
+
+- - -
+
+[cols="4*"]
+|=== 
+| <<building>> 
+| <<options>> 
+| <<programs>> 
+| <<linksand>> 
+|=== 
+
+// -----------------------------------------------------------------
+
+[[releasenotes]]
+== MyChip8 0.1 Release Notes
+
+Version 0.1 of MyChip8 as described in this manual faithfully executes Cosmac VIP programs outputting to a fixed 32-by-64-pixel, monochrome display, with Chip8 bytecode files loaded into a 4096-byte virtual memory core. Additional features include the following (also see <<options>>):
+
+* Single-step debugging mode
+* Alternate keyboard keys
+* Adjustable speed and display refresh rates
+* Programmable pixel and window sizes
+* Selectable pixel color
+* All source code included
+
+Except for the original interpreter, which I rewrote and debugged from top to bottom, I wrote all of MyChip8 from scratch in C++ using the Qt development system running on Ubuntu Linux, compiled using QMake and the Gnu Compiler Collection (GCC). Any recent release of Qt with OpenGL support should be able to build MyChip8 as fully explained in the next sections. (See <<linksand>> for links to required software.)
+
+image::cosmac-vip.png[]
+
+NOTE: MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the RCA Cosmac VIP computer (circa 1970s, see photo). MLS, Machine Language CDP1802 Subroutine calls, are not recognized. Missing also is support for SuperChip, Octo and other Chip8 extensions and anomalies -- all of which are priorities, however, on the _must-do_ list of coming MyChip8 attractions.
+
+I compiled most test programs using Octo (terminal- and browser-based versions) and then executed the resulting Chip8 bytecodes using both Octo and MyChip8. Testing in both environments revealed many subtle bugs and runtime differences that I was able to mostly smooth out. As a result, authentic Chip8 programs should run identically, or at least very similarly, in both MyChip8 and Octo using default settings.
+
+NOTE: Please report bugs and suggest features. Thanks!
+
+- - -
+
+// -----------------------------------------------------------------
+
+[[building]]
+== Building the Emulator
+
+Download and install Qt if necessary (see <<resources>>). Next, clone the `mychip8` GitHub repository into any folder. Or, if you choose the download option, unpack the downloaded ZIP file. Either way, the result is a new folder named `mychip8` containing all program files. You now have two choices for building and running MyChip8:
+
+* Build and run directly in the Qt IDE
+* Run QMake and other commands in a terminal window
+
+I use the second method in Linux, so that's what I describe here. (You can additionally build in the Qt IDE and then run the `mychip8` executable file from the build folder that Qt creates.) Similar commands ought to work in Windows and on Macintosh systems, but you must first open a terminal window. 
+
+Following are the commands that I use to clone the MyChip8 repository, build the program, and run a sample Chip8 program (`$` is the terminal prompt; `{tilde}` stands for "home folder"):
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== Building With Terminal Commands (Linux)
+
+----
+$ cd ~
+$ git clone https://github.com/TomSwan/mychip8.git
+$ cd mychip8
+$ mkdir build
+$ cd build
+$ ~/Qt/5.14.2/gcc_64/bin/qmake -o Makefile ../mychip8.pro -spec linux-g++
+$ make
+$ ./mychip8 ../examples/mytank.ch8
+----
+
+The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<resources>> if you have trouble.
+
+image::clip-mytank1.gif[640, 400]
+
+TIP: Using Qt Creator, start a new Qt console project, build it, and then open the resulting Makefile in the project's build folder. Look for a comment documenting the proper configuration settings for console applications on your system.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[[buildingwithqtide]]
+=== Building With Qt IDE (Qt Creator)
+
+To build the program directly from the Qt IDE (Qt Creator) select `File|Open File or Project...` and then select and open the file mychip8/mychip8.pro. When asked to "Configure Project," select a kit such as: 
+
+----
+Desktop Qt 5.15.0 GCC 64bit
+----
+
+and then select Configure Project. You only have to perform this step once. After that's done, optionally browse the source code files in the Editor, and then before running, configure the IDE for terminal-based input and output:
+
+1. Select Projects
+2. Under "Build & Run" select Desktop Run
+3. Enable "Run in terminal"
+4. Locate the field "Command line arguments:" under Run Settings
+5. Enter a path name to a Chip8 program file, for example:
+
+----
+Command line arguments: ~/mychip8/examples/mytank.ch8
+----
+
+Finally, select Run to build and run MyChip8, which should load and run mytank.ch8 (W S D A to navigate; Esc to quit). Press Return to close the terminal window opened by Qt.
+
+- - -
+
+// -----------------------------------------------------------------
+
+[[running]]
+== Running Chip8 Programs
+
+For best results, compile Chip8 programs using Octo and then run the resulting bytecode file with MyChip8:
+
+----
+$ cd ~/mychip8/examples
+$ ~/Octo/octo mytank.8o mytank.ch8
+$ ../build/mychip8 mytank.ch8
+----
+
+Alternatively, create soft links such as `octo` and `mychip8` in a PATH directory. You can then omit the complex path name as in the second line below:
+
+----
+$ cd ~/mychip8/examples
+$ mychip8 pong2.ch8
+----
+
+image::clip-pong2.gif[640, 400]
+
+TIP: See <<links>> for how to create soft links in Linux.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== Getting a Little Help
+
+Once you can build MyChip8, load and run a Chip8 program such as MyTank in the examples folder and then press F1 during any program run to display the following help text on the terminal showing the PC keyboard keys (left) that correspond to the original VIP hex pad buttons (right):
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== Chip8 Keyboard Map
+
+----
+1 2 3 4  ==  1 2 3 C
+Q W E R  ==  4 5 6 D
+A S D F  ==  7 8 9 E
+Z X C V  ==  A 0 B F
+----
+
+Some Chip-8 programs come with instructions, some don't. Many require you to figure out how to play them. Press keys and try to discover the rules. That's part of the fun of Chip8 programming!
+
+TIP: Use the -k option to add arrow keys to the usual W A S D navigation hex pad keys.
+
+- - -
+
+// -----------------------------------------------------------------
+
+[[options]]
+== Emulator Options
+
+Maybe I'm old fashioned, but I prefer to run MyChip8 from a command-line prompt with the name of a Chip8 file to load and run. That way, I can easily select among several available runtime options. 
+
+All options are in the usual <dash><letter> format such as -v (display version) and -h (help), which also have equivalent long forms --version and --help. You may combine options in any order. For instance, this sets the pixel color to Blue and toggles debugging mode on or off depending on its default setting (usually off):
+
+----
+$ mychip8 -p blue -d mytank.ch8
+----
+
+You could insert -d ahead of -p, but options that need values expect to find them immediately following. Sensible abbreviations are usually okay:
+
+----
+$ mychip8 -dp red -b6 mytank.ch8
+----
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== Options Index
+
+Enter `mychip8 --help` or `-h` for a list of available options (see screenshot). For testing and as place holders, some options are not implemented. For example, you may enter source and output filenames, but GIF creation is not yet supported and output file names currently have no purpose.
+
+image::screenshot.png[]
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -h, --help, --help-all
+
+Displays indexed information about program options. The last variation, --help-all, displays additional information about various options for standard Qt parameters.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -v, --version
+
+Shows the current version number.
+
+----
+$ mychip8 -v
+CHIP-8 Emulator 0.1
+----
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -b, --blocksize <size>
+
+Sets block height and width to <size> (pixels are square). Because output window size is calculated at runtime, changing BlockSize also changes WindowSize accordingly.
+
+- - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -p, --pixelcolor <color>
+
+Sets pixel color to any <color> from the following list:
+
+https://www.w3.org/TR/SVG11/types.html#ColorKeywords
+
+For example, this displays Chip8 pixels (each composed of eight display pixels in size) in a soft Coral hue:
+
+----
+$ mychip8 -p coral -b8 mytank.ch8
+----
+
+Pixel and window sizes are linked. Lowering -b (BlockSize) to six reduces both by 25%, this time in a pleasing Light Green shade:
+
+----
+$ mychip8 -p lightgreen -b6 mytank.ch8
+----
+
+image::clip-mytank2.gif[640, 400]
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== --cycle <ms>
+
+Sets emulator cycle rate to <ms> (milliseconds). Default: 18ms. Lower values increase program speed.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== --refresh <ms>
+
+Sets display refresh rate to <ms> (milliseconds). Default: 18ms. 
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== --steps <steps>
+
+Sets number of instruction steps per cycle to <steps>. Default: 13. In other words, for each cycle, the emulator performs this many Chip8 instructions. Lower values decrease program speed.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -d, --debugging
+
+Toggles Debugging (single-step) mode on and off depending on the default setting in config.h. Normally, -d enables runtime single stepping.
+
+NOTE: Debugging is rudimentary in this version, but still very useful. All 16 Chip8 V registers, the program counter, stack pointer, the stack contents, and memory address (I) variables are displayed along with the current instruction. Many more debugging features are planned. 
+
+image::clip-tetris.gif[640, 400]
+
+TIP: Debugging output is written to the standard output (usually the terminal window) while MyChip8 graphical output is displayed as usual in a separate window. It's easy then to monitor the effects of Chip8 instructions executed one by one. At the same time, load the program's source text (mytank.8o for example) into any text editor so you can follow along with the Octo statements, and you've got the makings of a versatile VIP Chip8 development system! (For what it's worth, that's exactly how I like to organize my setup.)
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -f, --force
+
+Not implemented.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -k, --altkeys
+
+Selects alternate navigation keys, mapping Cosmac hex pad keys W A S and D to the keyboard's Up, Down, Left, and Right arrow keys or their equivalents.
+
+NOTE: This option is useful only in programs that use WASD navigation. A more general keyboard mapping arrangement is planned for a future upgrade.
+
+TIP: In config.h, set ATL_KEYS to true to always use this option. In that case, -k turns off alternate keys if that should be necessary.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== -r, --record, source, output
+
+Not implemented.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+=== -s, --silence
+
+Toggles buzzer off for silent-running. Normally the buzzer is on. 
+
+TIP: In file config.h, if you set SILENT_RUNNING to true, -s turns the buzzer on.
+
+// -----------------------------------------------------------------
+
+[[linksand]]
+== Links and Configurations
+
+Let's go over some configuration details and take a brief look at some of the repository files. Of course, please browse all of the source code files if you care to learn how MyChip8 is organized, but beware that comments are sparse. You won't find many!
+
+NOTE: I gave up writing verbose comments long ago when I realized how much time I was wasting reading and writing _them_ and not code! I now spend extra effort making the symbolic logic of my programs readable on its own. I'm not giving up or pushing a moratorium on comments, I'm just taking a seriously more reserved approach to the subject. (For a wordy guy like me, it's a big change!)
+
+Except for main.cpp and config.h, all {cpp} source code (.cpp) and header (.h) files are stored together in a single folder, `source.` Sample Chip8 programs, along with the original interpreter ZIP file, are found in `examples.` The `image` folder stores miscellaneous graphics files and illustrations for this text.
+
+Executable object and runtime code files, plus any others such as Makefile, are found in the `build` folder, which is not included in the repository. You are expected to create an empty `build` folder, configure a Makefile inside of it, and then run the `make` system utility to build MyChip8. (See <<building>> for instructions.)
+
+NOTE: Note that Qt Creator stores executable output files in a build folder automatically created and typically named along with the current build "kit." For example, on my system, building MyChip8 in the Qt Creator IDE (see <<buildingwithqtide>>) creates the following subfolder relative to `{tilde}/mychip8:`
+
+----
+../build-mychip8-Desktop_Qt_5_15_0_GCC_64bit-Debug/
+----
+
+After building with the IDE, locate the mychip8 executable file inside.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+=== Configurations
+
+Two source files are found in the main directory: main.cpp and config.h. Edit the constants in config.h to change MyChip8's default settings. For example, if you want MyChip8 to always start in debugging mode, find and edit this line in config.h, changing false to true: 
+
+----
+#define DEBUGGING true
+----
+
+Because the -d option is a toggle, after rebuilding MyChip8, the option now turns debugging off.
+
+CAUTION: You may assign values to other default constants in config.h such as PIXEL_COLOR and BLOCK_SIZE, but changing the display resolution, fixed at 32 x 64 pixels, is not permitted in this version.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[[links]]
+=== Links
+
+So that you don't have to enter complex pathnames to run MyChip8 as well as other programs such as Octo, create soft links `mychip8` and `octo` somewhere in a directory that's on the system PATH.
+
+Here's how I create a soft link named `mychip8` in my home folder's bin subdirectory (which is on the PATH):
+
+----
+$ cd ~/bin
+$ ln -s ~/mychip8/build/mychip8 mychip8
+----
+
+Or, specify a full path to your home folder if necessary:
+
+----
+$ cd ~/bin
+$ ln -s /home/ronnie/mychip8/build/mychip8 mychip8
+----
+
+Now you can just enter mychip8 from any location to load and run Chip8 programs:
+
+----
+$ cd ~/mychip8/examples
+$ mychip8 myTank.ch8 
+----
+
+TIP: Similar commands should work on OS/X (Mac) and Windows systems in a console window. MS Windows batch files are similarly useful. (Pssst: to save even more typing, keep soft links and batch file names really short -- `c8,` for example, is what I actually use.)
+
+// -----------------------------------------------------------------
+
+[[programs]]
+== Chip8 Programs Known to Run in MyChip8
+
+All of the following programs load and run in MyChip8, but some must first be compiled using the most up-to-date release of Octo. All were tested in that way. In several cases, and especially if Octo reports strange errors such as "line 53: Undefined names: ﻿", copy and save the original source text files in UTF8 format and then try to compile again. At least that's what worked for me. Here's a medley of the first six Octojam title displays, all compiled with Octo from source and running simultaneously in MyChip8:
+
+image::clip-octojam.gif[800, 500]
+
+TIP: The `source` links locate Octo source code files ending in .8o (that's a lowercase letter o). Compile them with Octo and then run in MyChip8. The `rom` links locate compiled or original Chip8 bytecode files, usually ending in .ch8. Download and run such files directly in MyChip8.
+
+IMPORTANT: All links in the following table refer to programs written and maintained by their respective authors and are not directly included in this repository. *Many thanks* to all of those authors for creating so many _clever, fun, and entertaining_ Chip8 programs for all of us to learn from and enjoy!
+
+
+:archive: https://github.com/JohnEarnest/chip8Archive/tree/master/
+
+
+[cols="3*"]
+|=== 
+|Chip8 Program |Source (.8o) |Rom (.ch8)
+
+
+| 1dcell
+| {archive}src/1dcell[source]
+| {archive}roms/1dcell.ch8[rom]
+
+
+| 8cdAttourny1
+| {archive}src/8ceattourny_d1[source]
+| {archive}roms/8ceattourny_d1.ch8[rom]
+
+
+| 8cdAttourny2
+| {archive}src/8ceattourny_d2[source]
+| {archive}roms/8ceattourny_d2.ch8[rom]
+
+
+| BadKaiJuJu
+| {archive}src/BadKaiJuJu[source]
+| {archive}roms/BadKaiJuJu.ch8[rom]
+
+
+| Br8kout
+| {archive}src/br8kout[source]
+| {archive}roms/br8kout.ch8[rom]
+
+
+| carbon8
+| {archive}src/carbon8[source]
+| {archive}roms/carbon8.ch8[rom]
+
+
+| CaveExplorer
+| {archive}src/caveexplorer[source]
+| {archive}roms/caveexplorer.ch8[rom]
+
+
+| Chipquarium
+| {archive}src/chipquarium[source]
+| {archive}roms/chipquarium.ch8[rom]
+
+
+| ChipWar
+| {archive}src/chipwar[source]
+| {archive}roms/chipwar.ch8[rom]
+
+
+| Danm8ku
+| {archive}src/danm8ku[source]
+| {archive}roms/danm8ku.ch8[rom]
+
+
+| FlightRunner
+| {archive}src/flightrunner[source]
+| {archive}roms/flightrunner.ch8[rom]
+
+
+| Fuse
+| {archive}src/fuse[source]
+| {archive}roms/fuse.ch8[rom]
+
+
+| GhostEscape
+| {archive}src/ghostEscape[source]
+| {archive}roms/ghostEscape.ch8[rom]
+
+
+| GlitchGhost
+| {archive}src/glitchGhost[source]
+| {archive}roms/glitchGhost.ch8[rom]
+
+
+| HorseWorldOnline
+| {archive}src/horseWorldOnline[source]
+| {archive}roms/horseWorldOnline.ch8[rom]
+
+
+| Masquer8
+| {archive}src/masquer8[source]
+| {archive}roms/masquer8.ch8[rom]
+
+
+| Mastermind
+| {archive}src/mastermind[source]
+| {archive}roms/mastermind.ch8[rom]
+
+
+| OctoAChip8Story
+| {archive}src/octoachip8story[source]
+| {archive}roms/octoachip8story.ch8[rom]
+
+
+| Octojam1Title 
+| {archive}src/octojam1title[source]
+| {archive}roms/octojam1title.ch8[rom]
+
+
+| Octojam2Title 
+| {archive}src/octojam2title[source]
+| {archive}roms/octojam2title.ch8[rom]
+
+
+| Octojam3Title 
+| {archive}src/octojam3title[source]
+| {archive}roms/octojam3title.ch8[rom]
+
+
+| Octojam4Title 
+| {archive}src/octojam4title[source]
+| {archive}roms/octojam4title.ch8[rom]
+
+
+| Octojam5Title 
+| {archive}src/octojam5title[source]
+| {archive}roms/octojam5title.ch8[rom]
+
+
+| Octojam6Title 
+| {archive}src/octojam6title[source]
+| {archive}roms/octojam6title.ch8[rom]
+
+
+| OctoRancher
+| {archive}src/octorancher[source]
+| {archive}roms/octorancher.ch8[rom]
+
+
+| Outlaw
+| {archive}src/outlaw[source]
+| {archive}roms/outlaw.ch8[rom]
+
+
+| PetDog
+| {archive}src/petdog[source]
+| {archive}roms/petdog.ch8[rom]
+
+
+| Piper
+| {archive}src/piper[source]
+| {archive}roms/piper.ch8[rom]
+
+
+| PumpkinDressup
+| {archive}src/pumpkindressup[source]
+| {archive}roms/pumpkindressup.ch8[rom]
+
+
+| RPS
+| {archive}src/RPS[source]
+| {archive}roms/RPS.ch8[rom]
+
+
+| SlipperySlope
+| {archive}src/slipperyslope[source]
+| {archive}roms/slipperyslope.ch8[rom]
+
+
+| Snake
+| {archive}src/snake[source]
+| {archive}roms/snake.ch8[rom]
+
+
+| Spacejam
+| {archive}src/spacejam[source]
+| {archive}roms/spacejam.ch8[rom]
+
+
+| Tank
+| {archive}src/tank[source]
+| {archive}roms/tank.ch8[rom]
+
+
+| TombStonTipp
+| {archive}src/tombstontipp[source]
+| {archive}roms/tombstontipp.ch8[rom]
+
+
+|=== 
+
+- - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[[resources]]
+== Resources
+
+Following are links to the software used along with and to build MyChip8, plus additional links to various Chip8 resources.
+
+- Git: https://git-scm.com/downloads
+
+- Qt: https://www.qt.io/download
+
+- Octo Repository: https://github.com/JohnEarnest/Octo
+
+- Octo Online: https://johnearnest.github.io/Octo/
+
+- Chip8 Archive: https://johnearnest.github.io/chip8Archive/
+
+- Chip8 How To: http://mattmik.com/files/chip8/mastering/chip8.html
+
+- Chip8 Resources: https://github.com/tobiasvl/awesome-chip-8
+
+- Pips for VIPs: https://github.com/TomSwan/pips-for-vips
+
+- Programmers Guide to the 1802: https://tomswan.com/pub/collections/\#programmers-guide-to-the-1802-my-first-book
+
+// -----------------------------------------------------------------
+
+[[info]]
+== More Information
+
+For more stuff, browse my repositories on GitHub. It's where I store all of my downloads, files and example programs, new and old. Everything is free for the taking. 
+
+Please also follow the links below to visit my web site, GitHub and YouTube channels, and listings for books I've written, sometimes even the books themselves! Write to me at tom@tomswan.com. Good luck!
+
+- Website: https://www.tomswan.com
+
+- GitHub: https://github.com/TomSwan
+
+- YouTube: https://www.youtube.com/user/TomSwanPlaysGuitar
+
+- Book Listings: https://tomswan.com/pub/collections/
+
+// -----------------------------------------------------------------
+
+[[original]]
+== Original README.txt
+
+----
+About
+================
+
+Date: March 2011
+Author: Laurence Muller
+E-mail: laurence.muller@gmail.com
+Site: www.multigesture.net
+Licensetype: GNU General Public License (GPL) v2
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+Brief overview:
+===============
+
+This is a Chip8 emulator. The source code is available under GPL v2. More information can be found at:
+http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/
+
+How to use:
+===========
+
+Either run the application by typing the following in a console:
+
+> mychip8.exe invaders.c8
+
+or just drag any *.c8 file on mychip8.exe using Windows explorer.
+
+Keymapping:
+===========
+
+The original keypad:
+123C
+456D
+789G
+A0BF
+
+Keyboard mapping:
+1234
+qwer
+asdf
+zxcv
+
+Source code:
+============
+
+The current binary is compiled using visual studio 2010 and compressed using UPX. In order to compile you will need to download GLUT.
+----

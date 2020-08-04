@@ -1,0 +1,13 @@
+# testUnpack.8o
+
+: labelA
+
+: main
+
+    :unpack 0xA labelA
+    :unpack 0xA labelB
+    
+loop
+again
+
+: labelB

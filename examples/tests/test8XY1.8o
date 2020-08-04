@@ -1,0 +1,83 @@
+# test8XY1.8o 8XY2 8XY3
+
+: error
+    v0 := 0x1f
+    buzzer := v0
+;
+
+: main
+
+    ve := 0
+
+# 8XY1 (xor)
+
+    vf := 1
+    va := 0x1E
+    vb := 0xF1
+    va ^= vb            
+    if va != 0xEF then ve := 0x01
+    va ^= va            
+    if vf != 1 then ve := 0xf1
+    if va != 0x00 then ve := 0x02
+    vb ^= vb            
+    if vf != 1 then ve := 0xf1
+    if vb != 0x00 then ve := 0x03
+    va := 0x0F          
+    vb := 0b10101010    
+    va ^= vb            
+    if vf != 1 then ve := 0xf1
+    if va != 0xA5 then ve := 0x04
+
+    if vb != 0xAA then ve := 0x05
+    if vf != 1 then ve := 0xf1
+    if va != 0xA5 then ve := 0x06
+    if vf != 1 then ve := 0xf1
+
+# 8XY1 (and)
+
+    vf := 0
+    va := 0x1E
+    vb := 0xF1
+    va &= vb            
+    if va != 0x10 then ve := 0x07
+    va &= va            
+    if vf != 0 then ve := 0xf2
+    if va != 0x10 then ve := 0x08
+    vb &= vb            
+    if vb != 0xF1 then ve := 0x09
+    if vf != 0 then ve := 0xf2
+    va := 0x0F          
+    if va != 0x0F then ve := 0x0A
+    vb := 0b10101010    
+    if vf != 0 then ve := 0xf2
+    if va != 0x0F then ve := 0x0B
+    va &= vb            
+    if va != 0x0A then ve := 0x0C
+    if vf != 0 then ve := 0xf2
+
+# 8XY1 (or)
+
+    vf := 1
+    va := 0x1E
+    vb := 0xF1
+    va |= vb            
+    if va != 0xFF then ve := 0x0D
+    if vf != 1 then ve := 0xf3
+    va |= va            
+    if va != 0xFF then ve := 0x0E
+    vb |= vb            
+    if vb != 0xF1 then ve := 0x0F
+    if vf != 1 then ve := 0xf3
+    va := 0x0F          
+    if va != 0x0F then ve := 0x10
+    vb := 0b10101010    
+    if vf != 1 then ve := 0xf3
+    if va != 0x0F then ve := 0x11
+    va |= vb            
+    if va != 0xAF then ve := 0x12
+    if vf != 1 then ve := 0xf3
+
+    if ve != 0 then error
+    
+loop
+again

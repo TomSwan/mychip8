@@ -1,0 +1,41 @@
+# test8XYE.8o
+
+: main
+
+# 8F0E shift leftmost bit of V0 into VF and vice versa
+
+    vf := 0
+    v0 := 0x9C # 0b10011100
+    vf <<= v0  # v0 unchanged; vf==1
+    v0 <<= vf  # v0==0b00000010; vf==0
+
+# 8FFE shift VF register into (onto, unto?) itself
+# This is the same as isolating the MSB of any value
+# e.g. equivalent to x &= 0x80, equal to "is it negative?"
+
+    vf := 0x7F  # or any value
+    vf <<= vf   # vf==0
+    vf := 0xA3  # or any value
+    vf <<= vf   # vf==1
+    
+# 8ABE shift one register into another
+
+    vf := 0
+    va := 0x0E  #          0b00001110
+    vb := 0xE0  #          0b11100000
+    va <<= vb   # 0xC0 va==0b11000000 vf==1 vb unchanged
+
+# 800E move LS nybble to MS nybble (i.e. x16)
+    
+    vf := 0
+    v0 := 0x9a # 0x9A==0b10011010 vf==0
+    v0 <<= v0  # 0x34==0b00110100 vf==1
+    v0 <<= v0  # 0x68==0b01101000 vf==0
+    v0 <<= v0  # 0xD0==0b11010000 vf==0
+    v0 <<= v0  # 0xA0==0b10100000 vf==1
+# and then e.g. use as a block selector
+    i := 0x0200  
+    i += v0      # i==0x02A0
+    
+loop
+again

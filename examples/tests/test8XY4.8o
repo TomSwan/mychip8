@@ -1,0 +1,38 @@
+# test8XY4.8o
+
+: error
+    v0 := 0x1f
+    buzzer := v0
+;
+
+: main
+    va := 127   # va == 0x7F    vf == 0
+    vb := 127   # vb == 0x7F    vf == 0
+    va += vb    # va == 0xFE    vf == 0
+    
+    vb := 129   # vb == 0x81    vf == 0
+    va += vb    # va == 0x7F    vf == 1
+    
+    vf := 0
+    vb := -1    # vb == 0xFF    vf == -
+    va += vb    # va == 0x7E    vf == 1 
+    
+    va := 123   # va == 0x7B    vf == -
+    vb := 231   # vb == 0xE7    vf == -
+    vf := 0     # va == ----    vf == 0
+    va += vb    # va == 0x62    vf == 1
+
+    vc := 128   # vc == 0x80    vf == -
+    vf := 0     # va == ----    vf == 0
+    vc += vc    # vc == 0x00    vf == 1
+    
+    if vc != 0 then error
+    if vf != 1 then error
+        
+    vf := 128   # vf == 0x80    vf == 0x80
+    vf += vf    # vf == 0x01    vf == 1
+    
+    if vf != 1 then error
+    
+loop
+again

@@ -1,0 +1,9 @@
+# test7XNN.8o
+
+: main
+    va := 0x01  # va == 1
+    va += 0xFF  # va == (  1 + (-1) ) == 0x00
+    va += 0xFF  # va == (  0 + (-1) ) == 0xFF
+    va += 0x10  # va == ( -1 + 10   ) == 0x0F
+loop
+again

@@ -1,0 +1,32 @@
+#  testDXYN
+
+: imageA
+  0x80 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+: up    v1 += -1  ;
+: down  v1 +=  1  ;
+: right v0 += -1  ;
+: left  v0 +=  1  ;
+
+: main
+  v0 := 0x0
+  v1 := 0x0
+  i := imageA
+  loop
+    sprite v0 v1 1
+    va := key
+
+    vf := 1
+    delay := vf
+    loop
+      vf := delay
+      if vf != 0 then
+    again
+
+#    sprite v0 v1 1
+
+    if va == 2 then up
+    if va == 4 then right
+    if va == 6 then left
+    if va == 8 then down
+  again

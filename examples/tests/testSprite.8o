@@ -1,0 +1,56 @@
+# testSprite
+
+: arrows
+# 0202
+    0x10 0x38 0x7C 0xFE 0x38 0x38 0x38 0x00 # n
+# 020A : dir == 1
+    0x10 0x18 0xFC 0xFE 0xFC 0x18 0x10 0x00 # e
+# 0212
+    0x38 0x38 0x38 0xFE 0x7C 0x38 0x10 0x00 # s
+# 021A    
+    0x10 0x30 0x7E 0xFE 0x7E 0x30 0x10 0x00 # w
+
+: main
+
+    vb := 1  # direction
+    v0 <<= vb
+    v0 <<= v0
+    v0 <<= v0
+    i := arrows
+    i += v0
+    v0 := 1  # or compute x,y somehow
+    v1 := 1    
+    sprite v0 v1 7
+
+    vb := 2
+    v0 <<= vb
+    v0 <<= v0
+    v0 <<= v0
+    i := arrows
+    i += v0
+    v0 := 20
+    v1 := 1    
+    sprite v0 v1 7
+
+    vb := 3
+    v0 <<= vb
+    v0 <<= v0
+    v0 <<= v0
+    i := arrows
+    i += v0
+    v0 := 1
+    v1 := 12    
+    sprite v0 v1 7
+
+    vb := 0
+    v0 <<= vb
+    v0 <<= v0
+    v0 <<= v0
+    i := arrows
+    i += v0
+    v0 := 20
+    v1 := 12   
+    sprite v0 v1 7
+
+loop
+again
