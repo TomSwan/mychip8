@@ -21,7 +21,8 @@
 :tilde: ~
 :ul: _
 
-= MyChip8 for VIPs
+//= MyChip8 for VIPs
+= My VIP Chip8 Emulator
 
 by Tom Swan
 
@@ -58,7 +59,9 @@ Copyright (C) 2020 by Tom Swan
 [[releasenotes]]
 == MyChip8 0.1 Release Notes
 
-Version 0.1 of MyChip8 as described in this manual faithfully executes Cosmac VIP programs outputting to a fixed 32-by-64-pixel, monochrome display, with Chip8 bytecode files loaded into a 4096-byte virtual memory core. Additional features include the following (also see <<options>>):
+image::cosmac-vip.png[float="right"]
+
+Version 0.1 of MyChip8 as described in this manual faithfully executes Chip8 programs written for the RCA Cosmac VIP computer (circa 1970s, see photo), outputting to a fixed 32-by-64-pixel, monochrome display, and loading bytecode files into a 4096-byte virtual memory core. Additional features include the following (also see <<options>>):
 
 * Single-step debugging mode
 * Alternate keyboard keys
@@ -67,15 +70,11 @@ Version 0.1 of MyChip8 as described in this manual faithfully executes Cosmac VI
 * Selectable pixel color
 * All source code included
 
-Except for the original interpreter, which I rewrote and debugged from top to bottom, I wrote all of MyChip8 from scratch in C++ using the Qt development system running on Ubuntu Linux, compiled using QMake and the Gnu Compiler Collection (GCC). Any recent release of Qt with OpenGL support should be able to build MyChip8 as fully explained in the next sections. (See <<linksand>> for links to required software.)
+Except for the original interpreter, which I rewrote and debugged from top to bottom, I wrote all of MyChip8 from scratch in C++ using the Qt development system running on Ubuntu Linux, compiled using QMake and the Gnu Compiler Collection (GCC). (See <<resources>> for links to required software.)
 
-image::cosmac-vip.png[]
+MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the Cosmac VIP. MLS, Machine Language CDP1802 Subroutine calls, are not recognized. Support for SuperChip, Octo and other Chip8 extensions are top priorities for coming MyChip8 attractions. Check back often for updates!
 
-NOTE: MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the RCA Cosmac VIP computer (circa 1970s, see photo). MLS, Machine Language CDP1802 Subroutine calls, are not recognized. Missing also is support for SuperChip, Octo and other Chip8 extensions and anomalies -- all of which are priorities, however, on the _must-do_ list of coming MyChip8 attractions.
-
-I compiled most test programs using Octo (terminal- and browser-based versions) and then executed the resulting Chip8 bytecodes using both Octo and MyChip8. Testing in both environments revealed many subtle bugs and runtime differences that I was able to mostly smooth out. As a result, authentic Chip8 programs should run identically, or at least very similarly, in both MyChip8 and Octo using default settings.
-
-NOTE: Please report bugs and suggest features. Thanks!
+NOTE: I compiled most test programs using Octo (terminal- and browser-based versions) and then executed the resulting Chip8 bytecodes using both Octo and MyChip8. Testing in both environments revealed many subtle bugs and runtime differences that I was able to mostly smooth out. As a result, authentic Chip8 programs should run identically, or at least very similarly, in both MyChip8 and Octo using default settings.
 
 - - -
 
@@ -97,7 +96,7 @@ Following are the commands that I use to clone the MyChip8 repository, build the
 === Building With Terminal Commands (Linux)
 
 ----
-$ cd ~
+$ cd
 $ git clone https://github.com/TomSwan/mychip8.git
 $ cd mychip8
 $ mkdir build
@@ -107,7 +106,7 @@ $ make
 $ ./mychip8 ../examples/mytank.ch8
 ----
 
-The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<resources>> if you have trouble.
+The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
 
 image::clip-mytank1.gif[640, 400]
 
@@ -123,7 +122,7 @@ To build the program directly from the Qt IDE (Qt Creator) select `File|Open Fil
 Desktop Qt 5.15.0 GCC 64bit
 ----
 
-and then select Configure Project. You only have to perform this step once. After that's done, optionally browse the source code files in the Editor, and then before running, configure the IDE for terminal-based input and output:
+and then click the Configure Project button. You only have to perform this step once. After that's done, optionally browse the source code files in the Editor, and then before running, configure the IDE for terminal-based input and output:
 
 1. Select Projects
 2. Under "Build & Run" select Desktop Run
@@ -180,7 +179,7 @@ Z X C V  ==  A 0 B F
 
 Some Chip-8 programs come with instructions, some don't. Many require you to figure out how to play them. Press keys and try to discover the rules. That's part of the fun of Chip8 programming!
 
-TIP: Use the -k option to add arrow keys to the usual W A S D navigation hex pad keys.
+TIP: Use the -k option to enable keyboard arrow keys in addition to the usual W A S D navigation hex pad keys.
 
 - - -
 
@@ -189,7 +188,7 @@ TIP: Use the -k option to add arrow keys to the usual W A S D navigation hex pad
 [[options]]
 == Emulator Options
 
-Maybe I'm old fashioned, but I prefer to run MyChip8 from a command-line prompt with the name of a Chip8 file to load and run. That way, I can easily select among several available runtime options. 
+Call me old fashioned, but I prefer to run MyChip8 from a command-line prompt with the name of a Chip8 file to load and run. That way, I can easily select among several available runtime options. 
 
 All options are in the usual <dash><letter> format such as -v (display version) and -h (help), which also have equivalent long forms --version and --help. You may combine options in any order. For instance, this sets the pixel color to Blue and toggles debugging mode on or off depending on its default setting (usually off):
 
@@ -366,7 +365,7 @@ $ cd ~/mychip8/examples
 $ mychip8 myTank.ch8 
 ----
 
-TIP: Similar commands should work on OS/X (Mac) and Windows systems in a console window. MS Windows batch files are similarly useful. (Pssst: to save even more typing, keep soft links and batch file names really short -- `c8,` for example, is what I actually use.)
+TIP: Similar commands should work on OS/X (Mac) and Windows systems in a console window. Shell script aliases and MS Windows batch files are similarly useful. (Pssst: to save even more typing, keep soft links and batch file names really short -- `c8,` for example, is what I actually use.)
 
 // -----------------------------------------------------------------
 

@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #define TITLE "Chip-8 Emulator"
-#define VERSION "Mon 03 Aug 2020 09:15:27 AM EDT"
+#define VERSION "0.1"
 #define DESCRIPTION "Emulates the Cosmac VIP Chip-8 programming language\nQt OpenGL Interface by Tom Swan\nChip-8 Interpreter originally by Laurence Muller"
 #define CAPTION "<< F1:Help Esc:Quit >>"
 #define BACKGROUND_COLOR Qt::black
