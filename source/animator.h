@@ -1,3 +1,5 @@
+// animator.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef ANIMATOR_H
 #define ANIMATOR_H
 

@@ -1,3 +1,5 @@
+// util.cpp - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -52,8 +54,6 @@ int pfchar(const QString &s)
 QString pfline(const QString &s)
 {
     QTextStream(stdout) << s << "? ";
-//    QTextStream qtin(stdin); 
-//    return qtin.readLine();
     QTextStream in(stdin); 
     return in.readLine();
 }

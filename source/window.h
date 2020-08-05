@@ -1,3 +1,5 @@
+// window.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef WINDOW_H
 #define WINDOW_H
 

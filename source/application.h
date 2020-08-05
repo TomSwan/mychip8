@@ -1,3 +1,5 @@
+// application.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef APPLICATION_H
 #define APPLICATION_H
 

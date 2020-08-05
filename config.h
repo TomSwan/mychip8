@@ -1,3 +1,5 @@
+// config.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef CONFIG_H
 #define CONFIG_H
 

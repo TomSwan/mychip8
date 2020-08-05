@@ -1,3 +1,5 @@
+// util.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef UTIL_H
 #define UTIL_H
 

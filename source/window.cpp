@@ -1,3 +1,5 @@
+// window.cpp - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #include "application.h"
 #include "config.h"
 #include "glwidget.h"

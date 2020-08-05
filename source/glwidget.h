@@ -1,3 +1,5 @@
+// glwidget.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
+
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
