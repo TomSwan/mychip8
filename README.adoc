@@ -25,7 +25,7 @@
 
 by Tom Swan
 
-Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on a Chip8 interpreter originally written by Laurence Muller (see <<original>>). I fully revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
+Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on an open-source Chip8 interpreter (see <<original>>). I fully revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
 
 image::clip-br8kout.gif[800, 500]
 
