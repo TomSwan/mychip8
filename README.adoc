@@ -25,7 +25,7 @@
 
 by Tom Swan
 
-Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on an open-source Chip8 interpreter (see <<original>>). I fully revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
+Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on an open-source Chip8 interpreter (see <<original>>). I wrote, revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
 
 image::clip-br8kout.gif[800, 500]
 
@@ -67,7 +67,7 @@ Version 0.1 of MyChip8 as described in this manual faithfully executes Chip8 pro
 
 Except for the original interpreter, which I rewrote and debugged from top to bottom, I wrote all of MyChip8 from scratch in C++ using the Qt development system running on Ubuntu Linux, compiled using QMake and the Gnu Compiler Collection (GCC). (See <<resources>> for links to required software.)
 
-MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the Cosmac VIP. MLS, Machine Language CDP1802 Subroutine calls, are not recognized. Support for SuperChip, Octo and other Chip8 extensions are top priorities for coming MyChip8 attractions. Check back often for updates!
+MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the Cosmac VIP. MLS (CDP1802 Machine Language Subroutine) calls, are not recognized. SuperChip, Octo and other Chip8 extensions also are unimplemented--so far, but are top priorities. Check back often for updates!
 
 NOTE: I compiled most test programs using Octo (terminal- and browser-based versions) and then executed the resulting Chip8 bytecodes using both Octo and MyChip8. Testing in both environments revealed many subtle bugs and runtime differences that I was able to mostly smooth out. As a result, authentic Chip8 programs should run identically, or at least very similarly, in both MyChip8 and Octo using default settings.
 
@@ -598,11 +598,13 @@ Please also follow the links below to visit my web site, GitHub and YouTube chan
 
 - Website: https://www.tomswan.com
 
+- Book Listings: https://tomswan.com/pub/collections/
+
 - GitHub: https://github.com/TomSwan
 
 - YouTube: https://www.youtube.com/user/TomSwanPlaysGuitar
 
-- Book Listings: https://tomswan.com/pub/collections/
+- Twitter: https://twitter.com/TomSwanGuitar
 
 // -----------------------------------------------------------------
 
