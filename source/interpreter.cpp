@@ -293,8 +293,6 @@ void Interpreter::emulateCycle()
                             KP = true;
                         }
                     }
-//                    if(!KP) return;
-//                    pc += 2;                    
                     if(KP) pc += 2;                    
                 }
                 break;

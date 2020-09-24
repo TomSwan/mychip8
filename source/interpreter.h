@@ -1,5 +1,4 @@
 // interpreter.h - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
-// see end for original file header
 
 #ifndef INTERPRETER_H
 #define INTERPRETER_H

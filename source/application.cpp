@@ -99,23 +99,19 @@ bool Application::init(QApplication &app)
     
     if (parser.isSet(altKeysOption)) {
       altKeys = !altKeys;
-      cout << "altKeys == " << altKeys << endl;
     }
 
     if (parser.isSet(debuggingOption)) {
       debugging = !debugging;
-      cout << "debugging == " << debugging << endl;
     }
 
     if (parser.isSet(silenceOption)) {
       silentRunning = !silentRunning;
-      cout << "silentRunning == " << silentRunning << endl;
     }
 
     if (parser.isSet(blockSizeOption)) {
       int t = parser.value(blockSizeOption).toInt();
       blockSize = t;
-      cout << "blockSize == " << blockSize << endl;
     }
 
     if (parser.isSet(pixelColorOption)) {
@@ -125,19 +121,16 @@ bool Application::init(QApplication &app)
     if (parser.isSet(cycleRateOption)) {
       int t = parser.value(cycleRateOption).toInt();
       cycleRateMS = t;
-      cout << "cycleRateMS == " << cycleRateMS << endl;
     }
 
     if (parser.isSet(refreshRateOption)) {
       int t = parser.value(refreshRateOption).toInt();
       refreshRateMS = t;
-      cout << "refreshRateMS == " << refreshRateMS << endl;
     }
 
     if (parser.isSet(stepsPerCycleOption)) {
       int t = parser.value(stepsPerCycleOption).toInt();
       stepsPerCycle = t;
-      cout << "stepsPerCycle == " << stepsPerCycle << endl;
     }
 
     const QStringList args = parser.positionalArguments();
@@ -156,6 +149,19 @@ bool Application::init(QApplication &app)
 
     return true;
 }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//      cout << "altKeys == " << altKeys << endl;
+//      cout << "debugging == " << debugging << endl;
+//      cout << "silentRunning == " << silentRunning << endl;
+//      cout << "blockSize == " << blockSize << endl;
+//      cout << "pixelColor == " << pixelColor << endl;
+//      cout << "cycleRateMS == " << cycleRateMS << endl;
+//      cout << "refreshRateMS == " << refreshRateMS << endl;
+//      cout << "stepsPerCycle == " << stepsPerCycle << endl;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 void Application::report()
 {
