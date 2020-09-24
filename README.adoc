@@ -10,7 +10,6 @@
 :idprefix:
 :idseparator: -
 :sectanchors:
-:figure-caption!:
 :imagesdir: image
 :license: LICENSE.txt[License Text]
 :dot: .
@@ -27,6 +26,7 @@ by Tom Swan
 
 Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on an open-source Chip8 interpreter (see <<original>>). I wrote, revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
 
+._Br8kout_
 image::clip-br8kout.gif[800, 500]
 
 MyChip8 is composed of two symbiotic objects: an emulator -- encompassing the interface, graphics display, and keyboard input; and a Chip8 interpreter -- the code that loads and executes Chip8 bytecode instructions. It's built using Qt's OpenGL graphics and other C++ class libraries. This guide explains how to compile the MyChip8 source code files and shows how to use the program to load and run Chip8 programs.
@@ -54,6 +54,7 @@ Copyright (C) 2020 by Tom Swan
 [[releasenotes]]
 == MyChip8 0.1 Release Notes
 
+._RCA Cosmac VIP_
 image::cosmac-vip.png[float="right"]
 
 Version 0.1 of MyChip8 as described in this manual faithfully executes Chip8 programs written for the RCA Cosmac VIP computer (circa 1970s, see photo), outputting to a fixed 32-by-64-pixel, monochrome display, and loading bytecode files into a 4096-byte virtual memory core. Additional features include the following (also see <<options>>):
@@ -103,6 +104,7 @@ $ ./mychip8 ../examples/mytank.ch8
 
 The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
 
+._MyTank Chip8 example_
 image::clip-mytank1.gif[640, 400]
 
 TIP: Using Qt Creator, start a new Qt console project, build it, and then open the resulting Makefile in the project's build folder. Look for a comment documenting the proper configuration settings for console applications on your system.
@@ -153,6 +155,7 @@ $ cd ~/mychip8/examples
 $ mychip8 pong2.ch8
 ----
 
+._Pong2 Chip8 example_
 image::clip-pong2.gif[640, 400]
 
 TIP: See <<links>> for how to create soft links in Linux.
@@ -202,6 +205,7 @@ $ mychip8 -dp red -b6 mytank.ch8
 
 Enter `mychip8 --help` or `-h` for a list of available options (see screenshot). For testing and as place holders, some options are not implemented. For example, you may enter source and output filenames, but GIF creation is not yet supported and output file names currently have no purpose.
 
+._MyChip8 help text_
 image::screenshot.png[]
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -245,6 +249,7 @@ Pixel and window sizes are linked. Lowering -b (BlockSize) to six reduces both b
 $ mychip8 -p lightgreen -b6 mytank.ch8
 ----
 
+._Pixel-size and color options_
 image::clip-mytank2.gif[640, 400]
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -269,6 +274,7 @@ Toggles Debugging (single-step) mode on and off depending on the default setting
 
 NOTE: Debugging is rudimentary in this version, but still very useful. All 16 Chip8 V registers, the program counter, stack pointer, the stack contents, and memory address (I) variables are displayed along with the current instruction. Many more debugging features are planned. 
 
+._Single-step debugging_
 image::clip-tetris.gif[640, 400]
 
 TIP: Debugging output is written to the standard output (usually the terminal window) while MyChip8 graphical output is displayed as usual in a separate window. It's easy then to monitor the effects of Chip8 instructions executed one by one. At the same time, load the program's source text (mytank.8o for example) into any text editor so you can follow along with the Octo statements, and you've got the makings of a versatile VIP Chip8 development system! (For what it's worth, that's exactly how I like to organize my setup.)
@@ -369,6 +375,7 @@ TIP: Similar commands should work on OS/X (Mac) and Windows systems in a console
 
 All of the following programs load and run in MyChip8, but some must first be compiled using the most up-to-date release of Octo. All were tested in that way. In several cases, and especially if Octo reports strange errors such as "line 53: Undefined names: ﻿", copy and save the original source text files in UTF8 format and then try to compile again. At least that's what worked for me. Here's a medley of the first six Octojam title displays, all compiled with Octo from source and running simultaneously in MyChip8:
 
+._OctoJam titles running in MyChip8_
 image::clip-octojam.gif[800, 500]
 
 TIP: The `source` links locate Octo source code files ending in .8o (that's a lowercase letter o). Compile them with Octo and then run in MyChip8. The `rom` links locate compiled or original Chip8 bytecode files, usually ending in .ch8. Download and run such files directly in MyChip8.
