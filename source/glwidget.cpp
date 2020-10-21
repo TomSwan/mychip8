@@ -34,9 +34,12 @@ void GLWidget::cycle()
 {
     for (unsigned i = 0; i < myApp.stepsPerCycle; i++) {
         if (!myApp.debugging) myChip8.emulateCycle(); else {
-            if ( !ok("DEBUG : Continue") ) exit(0);
-            myChip8.emulateCycle(); 
-            myApp.report();
+//            if ( !ok("DEBUG : Continue") ) exit(0);
+            if ( ok("DEBUG : Step") ) {
+                myChip8.emulateCycle(); 
+                myApp.report();
+            } else
+                myApp.debugging = false;
         }
     }
 }

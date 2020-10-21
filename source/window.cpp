@@ -84,6 +84,8 @@ void Window::keyPressEvent(QKeyEvent *event)
     else if(event->key() == Qt::Key_V)    myChip8.key[0xF] = 1;
 
     else if(event->key() == Qt::Key_F1)   help();
+    else if(event->key() == Qt::Key_F2)   myApp.debugging = true;
+    
     else if (myApp.altKeys) {
          if(event->key() == Qt::Key_Up)    myChip8.key[0x5] = 1;
     else if(event->key() == Qt::Key_Down)  myChip8.key[0x8] = 1;

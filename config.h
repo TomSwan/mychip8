@@ -19,7 +19,8 @@
 #define REFRESH_RATE_MS 18
 #define CYCLE_RATE_MS 18
 #define STEPS_PER_CYCLE 13
-#define DEBUGGING false
+//#define DEBUGGING false
+#define DEBUGGING true
 #define SILENT_RUNNING false
 #define ALT_KEYS false
 
