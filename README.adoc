@@ -4,7 +4,7 @@
 :email: <tom@tomswan.com>
 :description: Guide to MyChip8 for VIPS a Cosmac VIP Emulator
 :keywords: GAMES VINTAGE PROGRAMMING CHIP8 OCTO C++ RCA COSMAC VIP 
-:copyright: © 2020 by Tom Swan
+:copyright: © 2020,2022 by Tom Swan
 :favicon: https://www.tomswan.com/image/favicon.png
 :icons: font
 :idprefix:
@@ -59,7 +59,7 @@ image::cosmac-vip.png[float="right"]
 
 Version 0.1 of MyChip8 as described in this manual faithfully executes Chip8 programs written for the RCA Cosmac VIP computer (circa 1970s, see photo), outputting to a fixed 32-by-64-pixel, monochrome display, and loading bytecode files into a 4096-byte virtual memory core. Additional features include the following (also see <<options>>):
 
-* Single-step debugging mode
+* Single-step debugging mode (NEW: Press F2 to toggle!)
 * Alternate keyboard keys
 * Adjustable speed and display refresh rates
 * Programmable pixel and window sizes
@@ -200,6 +200,17 @@ You could insert -d ahead of -p, but options that need values expect to find the
 $ mychip8 -dp red -b6 mytank.ch8
 ----
 
+- - -
+
+// -----------------------------------------------------------------
+
+=== Function Keys
+
+|===
+| [big]#F1# | Help
+| [big]#F2# | Toggle Debugging
+|===
+ 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 === Options Index
 

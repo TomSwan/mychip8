@@ -184,5 +184,11 @@ void Application::report()
         cout << "s[" << hexs(i) << "]:" << setw(4) << hexs(myChip8.getstack(i)) << " ";
         if ( ((i+1)%4) == 0 ) cout << endl;
     }
+    
+    for (int i = 200; i < 264; i++) {
+        cout << "m[" << hexs(i) << "]:" << setw(4) << hexs(myChip8.getmemory(i)) << " ";
+        if ( ((i+1)%4) == 0 ) cout << endl;
+    }
+    
     cout << endl;
 }
