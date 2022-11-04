@@ -37,7 +37,7 @@ NOTE: This early release of MyChip8 runs best from a terminal  command-line and 
 
 Published under the GNU General Public License (GPL) v3: link:{license}
 
-Copyright (C) 2020 by Tom Swan
+Copyright (C) 2022 by Tom Swan
 
 - - -
 
