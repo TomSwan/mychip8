@@ -91,16 +91,16 @@ Following are the commands that I use to clone the MyChip8 repository, build the
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 === Building With Terminal Commands (Linux)
 
-----
-$ cd
-$ git clone https://github.com/TomSwan/mychip8.git
-$ cd mychip8
-$ mkdir build
-$ cd build
-$ ~/Qt/5.14.2/gcc_64/bin/qmake -o Makefile ../mychip8.pro -spec linux-g++
-$ make
-$ ./mychip8 ../examples/mytank.ch8
-----
+....
+cd
+git clone https://github.com/TomSwan/mychip8.git
+cd mychip8
+mkdir build
+cd build
+~/Qt/5.15.0/gcc_64/bin/qmake -o Makefile ../mychip8.pro -spec linux-g++
+make
+./mychip8 ../examples/mytank.ch8
+....
 
 The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
 
