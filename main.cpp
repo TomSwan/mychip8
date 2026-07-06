@@ -8,8 +8,8 @@
 #include <QApplication>
 
 int main(int argc, char *argv[])
-{		
-	QApplication app(argc, argv);
+{
+    QApplication app(argc, argv);
     QApplication::setApplicationName(TITLE);
     QApplication::setApplicationVersion(VERSION);
 
@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
     Application myApp(myChip8);
 
     if (!myApp.init(app)) return 1;
-
     Window window(myApp, myChip8);
     window.show();
     return app.exec();
