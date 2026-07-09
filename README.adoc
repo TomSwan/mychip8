@@ -3,8 +3,8 @@
 :author: Tom Swan
 :email: <tom@tomswan.com>
 :description: Guide to MyChip8 for VIPS a Cosmac VIP Emulator
-:keywords: GAMES VINTAGE PROGRAMMING CHIP8 OCTO C++ RCA COSMAC VIP 
-:copyright: © 2020,2022 by Tom Swan
+:keywords: GAMES VINTAGE PROGRAMMING CHIP8 OCTO C++ RCA COSMAC VIP QT
+:copyright: © 2026 by Tom Swan
 :favicon: https://www.tomswan.com/image/favicon.png
 :icons: font
 :idprefix:
@@ -24,20 +24,20 @@
 
 by Tom Swan
 
-Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on an open-source Chip8 interpreter (see <<original>>). I wrote, revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
+Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on a like-named open-source Chip8 interpreter by Laurence Muller (see <<original>>). I wrote, revised and tested MyChip8 with dozens of published Chip8 and Octo games and other programs. MyChip8 runs great, it's all open-source, it's all here, and it's all free.
 
 ._Br8kout_
 image::clip-br8kout.gif[800, 500]
 
 MyChip8 is composed of two symbiotic objects: an emulator -- encompassing the interface, graphics display, and keyboard input; and a Chip8 interpreter -- the code that loads and executes Chip8 bytecode instructions. It's built using Qt's OpenGL graphics and other C++ class libraries. This guide explains how to compile the MyChip8 source code files and shows how to use the program to load and run Chip8 programs.
 
-NOTE: This early release of MyChip8 runs best from a terminal  command-line and has only a rudimentary interface -- so far! 
+NOTE: This early release of MyChip8 runs best from a terminal command-line and has only a rudimentary interface -- so far!
 
 - - -
 
 Published under the GNU General Public License (GPL) v3: link:{license}
 
-Copyright (C) 2022 by Tom Swan
+Copyright (C) 2026 by Tom Swan
 
 - - -
 
@@ -68,7 +68,7 @@ Version 0.1 of MyChip8 as described in this manual faithfully executes Chip8 pro
 
 Except for the original interpreter, which I rewrote and debugged from top to bottom, I wrote all of MyChip8 from scratch in C++ using the Qt development system running on Ubuntu Linux, compiled using QMake and the Gnu Compiler Collection (GCC). (See <<resources>> for links to required software.)
 
-MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the Cosmac VIP. MLS (CDP1802 Machine Language Subroutine) calls, are not recognized. SuperChip, Octo and other Chip8 extensions also are unimplemented--so far, but are top priorities. Check back often for updates!
+MyChip8 implements all but one of the 35 original Chip8 instructions as programmed for the Cosmac VIP. MLS (CDP1802 Machine Language Subroutine) calls, are not recognized. SuperChip, Octo and other Chip8 extensions also are unimplemented, but are top priorities. Check back often for updates!
 
 NOTE: I compiled most test programs using Octo (terminal- and browser-based versions) and then executed the resulting Chip8 bytecodes using both Octo and MyChip8. Testing in both environments revealed many subtle bugs and runtime differences that I was able to mostly smooth out. As a result, authentic Chip8 programs should run identically, or at least very similarly, in both MyChip8 and Octo using default settings.
 
@@ -84,7 +84,7 @@ Download and install Qt if necessary (see <<resources>>). Next, clone the `mychi
 * Build and run directly in the Qt IDE
 * Run QMake and other commands in a terminal window
 
-I use the second method in Linux, so that's what I describe here. (You can additionally build in the Qt IDE and then run the `mychip8` executable file from the build folder that Qt creates.) Similar commands ought to work in Windows and on Macintosh systems, but you must first open a terminal window. 
+I use the second method in Linux, so that's what I describe here. (You can additionally build in the Qt IDE and then run the `mychip8` executable file from the build folder that Qt creates.) Similar commands ought to work in Windows and on Macintosh systems. 
 
 Following are the commands that I use to clone the MyChip8 repository, build the program, and run a sample Chip8 program (`$` is the terminal prompt; `{tilde}` stands for "home folder"):
 
@@ -102,7 +102,7 @@ make
 ./mychip8 ../examples/mytank.ch8
 ....
 
-The first command navigates to the home folder -- or, you can change to any other folder for holding the repository. In the configuration command (third line from the last), edit the version numbers and operating system as needed. If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
+The first command `cd` navigates to the home folder -- or, you can change to any other folder where you want to clone or unzip the repository. In the configuration command (third line from the last), edit the folder names and version numbers as needed to locate qmake on your system (installed along with Qt). If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
 
 ._MyTank Chip8 example_
 image::clip-mytank1.gif[640, 400]
@@ -128,7 +128,7 @@ and then click the Configure Project button. You only have to perform this step 
 5. Enter a path name to a Chip8 program file, for example:
 
 ----
-Command line arguments: ~/mychip8/examples/mytank.ch8
+Command line arguments: examples/mytank.ch8
 ----
 
 Finally, select Run to build and run MyChip8, which should load and run mytank.ch8 (W S D A to navigate; Esc to quit). Press Return to close the terminal window opened by Qt.
