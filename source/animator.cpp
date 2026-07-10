@@ -2,7 +2,6 @@
 
 #include "animator.h"
 #include "application.h"
-#include "config.h"
 #include "interpreter.h"
 
 #include <QPainter>

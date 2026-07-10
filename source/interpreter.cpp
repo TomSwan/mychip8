@@ -1,7 +1,6 @@
 // interpreter.cpp - (c) 2020 by Tom Swan - GPLv3 (see LICENSE.txt)
 
 #include "interpreter.h"
-#include "util.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -4,7 +4,6 @@
 #include "config.h"
 #include "glwidget.h"
 #include "interpreter.h"
-#include "util.h"
 #include "window.h"
 
 #include <QApplication>
