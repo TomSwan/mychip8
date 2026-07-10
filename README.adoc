@@ -100,24 +100,26 @@ git clone https://github.com/TomSwan/mychip8.git
 cd mychip8
 mkdir build
 cd build
-~/Qt/5.15.0/gcc_64/bin/qmake -o Makefile ../mychip8.pro -spec linux-g++
+qmake -o Makefile ../mychip8.pro -spec linux-g++
 make
 ./mychip8 ../examples/mytank.ch8
 ....
 
-The first command `cd` navigates to the home folder -- or, you can change to any other folder where you want to clone or unzip the repository. In the configuration command (third line from the last), edit the folder names and version numbers as needed to locate qmake on your system (installed along with Qt). If MyTank runs, MyChip8 is working! Press W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
+The first command `cd` navigates to your home folder -- or go to any other folder where you want to clone or unzip the repository. Do that using git as shown, or download and unpack the ZIP file if you prefer. Either way, change into the mychip8 folder. Make a `build` or other folder, `cd` into it, and run `qmake` (installed along with Qt) to create a Makefile using the information in mychip8.pro (for 'Qt project file'). If using a different operating system, you probably need to edit the `-spec linux g++` option to select a compiler. After creating Makefile, enter `make` to build the emulator. 
+
+Test MyChip8 it on any .ch8 bytecode file as shown on the last line. If MyTank runs, MyChip8 is working! Press keys W S A D to navigate, Esc to quit. See <<links>> if you have trouble.
 
 ._MyTank Chip8 example_
 image::clip-mytank1.gif[640, 400]
 
-To run Breakout, pictured above, try:
+Try also running the Breakout example depicted at the top of this document:
 
 [source, console]
 ....
-./mychip8 ../examples/br8kout/br8kout.ch8 
+./mychip8 ../examples/br8kout.ch8
 ....
 
-TIP: Using Qt Creator, start a new Qt console project, build it, and then open the resulting Makefile in the project's build folder. Look for a comment documenting the proper configuration settings for console applications on your system.
+TIP: Qt Creator can help determine the correct command line options to specify. Start a new, empty Qt console project, build it, and then open the resulting Makefile in the project's build folder. Look for a comment documenting the proper configuration settings for console applications to use on your system for building from the command line using make.
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 [[buildingwithqtide]]

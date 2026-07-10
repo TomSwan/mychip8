@@ -42,57 +42,57 @@ bool Application::init(QApplication &app)
     parser.setApplicationDescription(DESCRIPTION);
     parser.addHelpOption();
     parser.addVersionOption();    
-    parser.addPositionalArgument("source", "Chip-8 source file.");
-    parser.addPositionalArgument("output", "GIF output file (optional).");
+    parser.addPositionalArgument("source", "Chip-8 source file");
+    parser.addPositionalArgument("output", "GIF output file (optional)");
 
     QCommandLineOption blockSizeOption(
         QStringList() << "b" << "blocksize",
-            "Sets block height and width to <size>.", "size");
+            "Sets block height and width to <size>", "size");
     parser.addOption(blockSizeOption);
 
     QCommandLineOption pixelColorOption(
         QStringList() << "p" << "pixelcolor",
-            "Sets pixel color to <color>.", "color");
+            "Sets pixel color to <color>", "color");
     parser.addOption(pixelColorOption);
 
     QCommandLineOption cycleRateOption(
         QStringList() << "cycle",
-            "Sets cycle rate to <ms>.", "ms");
+            "Sets cycle rate to <ms>", "ms");
     parser.addOption(cycleRateOption);
 
     QCommandLineOption refreshRateOption(
         QStringList() << "refresh",
-            "Sets refresh rate to <ms>.", "ms");
+            "Sets refresh rate to <ms>", "ms");
     parser.addOption(refreshRateOption);
 
     QCommandLineOption stepsPerCycleOption(
         QStringList() << "steps",
-            "Sets steps per cycle to <steps>.", "steps");
+            "Sets steps per cycle to <steps>", "steps");
     parser.addOption(stepsPerCycleOption);
 
     QCommandLineOption debuggingOption(
         QStringList() << "d" << "debugging",
-            "Toggles debugging (single-step) mode.");
+            "Toggles debugging (single-step) mode");
     parser.addOption(debuggingOption);
 
     QCommandLineOption forceOption(
         QStringList() << "f" << "force",
-        "Overwrites existing files.");
+        "Overwrites existing files");
     parser.addOption(forceOption);
 
     QCommandLineOption altKeysOption(
         QStringList() << "k" << "altkeys",
-        "Selects alternate navigation keys.");
+        "Selects alternate navigation keys");
     parser.addOption(altKeysOption);
 
     QCommandLineOption recordOption(
         QStringList() << "r" << "record",
-        "Records frames for GIF movie creation.");
+        "Records GIF movie frames (not implemented)");
     parser.addOption(recordOption);
 
     QCommandLineOption silenceOption(
         QStringList() << "s" << "silence",
-            "Toggles buzzer (silent-running).");
+            "Toggles buzzer (silent-running)");
     parser.addOption(silenceOption);
 
     parser.process(app);

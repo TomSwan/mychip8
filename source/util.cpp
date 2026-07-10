@@ -10,40 +10,40 @@
 #include <stdio.h> 
 #include <util.h>
 
-using namespace std;  
-
-void cr()
-{
-    QTextStream(stdout) << "\n";
-}
+QTextStream cout(stdout);
 
 [[ noreturn ]] void mFatal(const QString &s)
 {
-    cr(); QTextStream(stdout) << "ERROR: " << s << endl << endl;
+    cr(); cout << "ERROR: " << s << Qt::endl << Qt::endl;
     exit(1);
+}
+
+void cr()
+{
+    cout << "\n";
 }
 
 void ph(const QString &s)
 {
     cr();
     cutline(5);
-    QTextStream(stdout) << s << endl;
+    cout << s << Qt::endl;
     cutline(5);
 }
 
 void ps(const QString &s)
 {
-    QTextStream(stdout) << "- " << s << endl;
+    cout << "- " << s << Qt::endl;
 }
 
 void pss(const QString &s)
 {
-    QTextStream(stdout) << s << endl;
+    cout << s << Qt::endl;
 }
 
 int pfchar(const QString &s)
 {
-    QTextStream(stdout) << s << "? ";
+    cout << s << "? ";
     system("stty raw");
     int response = getchar(); 
     system("stty cooked");
@@ -53,8 +53,8 @@ int pfchar(const QString &s)
 
 QString pfline(const QString &s)
 {
-    QTextStream(stdout) << s << "? ";
-    QTextStream in(stdin); 
+    cout << s << "? ";
+    QTextStream in(stdin);
     return in.readLine();
 }
 
@@ -71,43 +71,13 @@ bool ok(const QString &s)
 void cutline(int count)
 {
     while ( count-- > 0 )
-        QTextStream(stdout) << "----";
+        cout << "----";
     cr();
-}
-
-bool makeDir(const QString &folder)
-{
-    if (QFileInfo::exists(folder))
-        return true;
-    else
-        return (QProcess::execute("mkdir " + folder) == 0);
 }
 
 bool fileExists(const QString &path)
 {
     return QFileInfo::exists(path);
-}
-
-void deleteFile(const QString &path)
-{
-    QFile f(path);
-    if (f.exists()) f.remove();
-}
-
-void deleteFolder(const QString &folder)
-{
-    if (fileExists(folder)) {
-        QFileInfo info(folder);
-        QDir dir(info.absoluteFilePath());
-        if ( ok("REMOVE " + dir.path()) )
-            dir.removeRecursively();
-    }
-}
-
-bool copyFile(const QString &fromPath, const QString &toPath)
-{
-    pss(fromPath + " --> " + toPath);
-    return QFile::copy(fromPath, toPath);
 }
 
 int inrange(int n, int low, int high)
