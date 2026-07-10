@@ -29,6 +29,8 @@ Welcome to _MyChip8 for VIPs,_ my home-brew Cosmac VIP emulator based on a like-
 ._Br8kout_
 image::clip-br8kout.gif[800, 500]
 
+NOTE: See especially https://github.com/JohnEarnest/chip8Archive and also search for Chip8 for other great examples of Chip8 programming 
+
 MyChip8 is composed of two symbiotic objects: an emulator -- encompassing the interface, graphics display, and keyboard input; and a Chip8 interpreter -- the code that loads and executes Chip8 bytecode instructions. It's built using Qt's OpenGL graphics and other C++ class libraries. This guide explains how to compile the MyChip8 source code files and shows how to use the program to load and run Chip8 programs.
 
 NOTE: This early release of MyChip8 runs best from a terminal command-line and has only a rudimentary interface -- so far!
@@ -91,6 +93,7 @@ Following are the commands that I use to clone the MyChip8 repository, build the
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 === Building With Terminal Commands (Linux)
 
+[source, console]
 ....
 cd
 git clone https://github.com/TomSwan/mychip8.git
@@ -106,6 +109,13 @@ The first command `cd` navigates to the home folder -- or, you can change to any
 
 ._MyTank Chip8 example_
 image::clip-mytank1.gif[640, 400]
+
+To run Breakout, pictured above, try:
+
+[source, console]
+....
+./mychip8 ../examples/br8kout/br8kout.ch8 
+....
 
 TIP: Using Qt Creator, start a new Qt console project, build it, and then open the resulting Makefile in the project's build folder. Look for a comment documenting the proper configuration settings for console applications on your system.
 
@@ -142,18 +152,20 @@ Finally, select Run to build and run MyChip8, which should load and run mytank.c
 
 For best results, compile Chip8 programs using Octo and then run the resulting bytecode file with MyChip8:
 
-----
+[source, console]
+....
 $ cd ~/mychip8/examples
 $ ~/Octo/octo mytank.8o mytank.ch8
 $ ../build/mychip8 mytank.ch8
-----
+....
 
 Alternatively, create soft links such as `octo` and `mychip8` in a PATH directory. You can then omit the complex path name as in the second line below:
 
-----
+[source, console]
+....
 $ cd ~/mychip8/examples
 $ mychip8 pong2.ch8
-----
+....
 
 ._Pong2 Chip8 example_
 image::clip-pong2.gif[640, 400]
@@ -168,12 +180,13 @@ Once you can build MyChip8, load and run a Chip8 program such as MyTank in the e
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 === Chip8 Keyboard Map
 
-----
+[source, console]
+....
 1 2 3 4  ==  1 2 3 C
 Q W E R  ==  4 5 6 D
 A S D F  ==  7 8 9 E
 Z X C V  ==  A 0 B F
-----
+....
 
 Some Chip-8 programs come with instructions, some don't. Many require you to figure out how to play them. Press keys and try to discover the rules. That's part of the fun of Chip8 programming!
 
@@ -190,15 +203,17 @@ Call me old fashioned, but I prefer to run MyChip8 from a command-line prompt wi
 
 All options are in the usual <dash><letter> format such as -v (display version) and -h (help), which also have equivalent long forms --version and --help. You may combine options in any order. For instance, this sets the pixel color to Blue and toggles debugging mode on or off depending on its default setting (usually off):
 
-----
+[source, console]
+....
 $ mychip8 -p blue -d mytank.ch8
-----
+....
 
 You could insert -d ahead of -p, but options that need values expect to find them immediately following. Sensible abbreviations are usually okay:
 
-----
+[source, console]
+....
 $ mychip8 -dp red -b6 mytank.ch8
-----
+....
 
 - - -
 
@@ -229,10 +244,11 @@ Displays indexed information about program options. The last variation, --help-a
 
 Shows the current version number.
 
-----
+[source, console]
+....
 $ mychip8 -v
 CHIP-8 Emulator 0.1
-----
+....
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 === -b, --blocksize <size>
@@ -250,15 +266,18 @@ https://www.w3.org/TR/SVG11/types.html#ColorKeywords
 
 For example, this displays Chip8 pixels (each composed of eight display pixels in size) in a soft Coral hue:
 
-----
+[source, console]
+....
 $ mychip8 -p coral -b8 mytank.ch8
-----
+....
 
 Pixel and window sizes are linked. Lowering -b (BlockSize) to six reduces both by 25%, this time in a pleasing Light Green shade:
 
-----
+[source, console]
+....
 $ mychip8 -p lightgreen -b6 mytank.ch8
-----
+....
+
 
 ._Pixel-size and color options_
 image::clip-mytank2.gif[640, 400]
@@ -331,9 +350,11 @@ Executable object and runtime code files, plus any others such as Makefile, are 
 
 NOTE: Note that Qt Creator stores executable output files in a build folder automatically created and typically named along with the current build "kit." For example, on my system, building MyChip8 in the Qt Creator IDE (see <<buildingwithqtide>>) creates the following subfolder relative to `{tilde}/mychip8:`
 
-----
+[source, console]
+....
 ../build-mychip8-Desktop_Qt_5_15_0_GCC_64bit-Debug/
-----
+....
+
 
 After building with the IDE, locate the mychip8 executable file inside.
 
@@ -342,9 +363,10 @@ After building with the IDE, locate the mychip8 executable file inside.
 
 Two source files are found in the main directory: main.cpp and config.h. Edit the constants in config.h to change MyChip8's default settings. For example, if you want MyChip8 to always start in debugging mode, find and edit this line in config.h, changing false to true: 
 
-----
+[source, console]
+....
 #define DEBUGGING true
-----
+....
 
 Because the -d option is a toggle, after rebuilding MyChip8, the option now turns debugging off.
 
@@ -358,24 +380,27 @@ So that you don't have to enter complex pathnames to run MyChip8 as well as othe
 
 Here's how I create a soft link named `mychip8` in my home folder's bin subdirectory (which is on the PATH):
 
-----
+[source, console]
+....
 $ cd ~/bin
 $ ln -s ~/mychip8/build/mychip8 mychip8
-----
+....
 
 Or, specify a full path to your home folder if necessary:
 
-----
+[source, console]
+....
 $ cd ~/bin
 $ ln -s /home/ronnie/mychip8/build/mychip8 mychip8
-----
+....
 
 Now you can just enter mychip8 from any location to load and run Chip8 programs:
 
-----
+[source, console]
+....
 $ cd ~/mychip8/examples
 $ mychip8 myTank.ch8 
-----
+....
 
 TIP: Similar commands should work on OS/X (Mac) and Windows systems in a console window. Shell script aliases and MS Windows batch files are similarly useful. (Pssst: to save even more typing, keep soft links and batch file names really short -- `c8,` for example, is what I actually use.)
 
@@ -674,4 +699,7 @@ Source code:
 ============
 
 The current binary is compiled using visual studio 2010 and compressed using UPX. In order to compile you will need to download GLUT.
+...
 ----
+
+NOTE: Complete file is in `examples/myChip8-bin-src.zip`
